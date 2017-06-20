@@ -1,0 +1,51 @@
+doctype html
+html
+head
+title LogIn
+body
+	.d
+		.d1
+			| Registration
+		.d2
+			| Log in
+	form.f2(method="POST", action="/login")
+		table
+			tr
+				td Login
+				td
+					input#login(type='text',name="login")
+			tr
+				td Password
+				td
+					input#passin(type='Password',name="password")
+			tr
+				td
+					button.login Log in
+				td
+					button.exit Exit
+	br
+
+	form.f1(method="POST", action="/register")
+		table
+			tr
+				td First Name
+				td
+					input#fname(type='text', name="firstname")
+			tr
+				td Last Name
+				td
+					input#lname(type='text', name="lastname")
+			tr
+				td Email
+				td
+					input#log(type='mail',  name="mail")
+			tr
+				td Password
+				td
+					input#pass(type='Password', name="password")
+			tr
+				td
+					button.registrtion Registration
+				td
+					button.exit Exit
+div(style='position: fixed;')

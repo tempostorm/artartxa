@@ -1,23 +1,21 @@
-/**
- * Created by Comp4 on 08.06.2017.
- */
-
-//module dependencies
 const express = require('express');
+const serve  = require('express-static');
+var jade = require('jade');
 const app = express();
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const router = require('./route');
-//const morgan = require('morgan');
-//const expStatic = require('express-static');
-const jade = require('jade');
-console.log(__filename);
-//middleaware express
-//app.use(expStatic('/views'+__filename));
-app.set('view engine', 'ejs');
-//app.use(morgan('dev'));
+const mongoose = require('./mongo_que')
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(morgan('dev'));
+app.use(serve(__dirname + '/views'));
+app.set('view engine', 'jade');
 app.use("/", router);
 
 
-
-app.listen(3030, console.log('OK'));
+app.listen(8000, () =>{
+    console.log('running');
+});
