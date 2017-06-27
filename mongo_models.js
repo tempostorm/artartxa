@@ -3,7 +3,10 @@
  */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var  schema= new Schema({},{});
-const user_model = mongoose.model('schema',schema, 'user');
+var schema= new Schema({},{
+    strict : false,
+    versionKey : false
+});
+const user_model = mongoose.model('User', schema, 'user');
 
 module.exports = {user_model};

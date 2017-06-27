@@ -5,7 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const router = require('./route');
-const mongoose = require('./mongo_que')
+// const mongoose = require('./mongo_que')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -16,6 +16,6 @@ app.set('view engine', 'jade');
 app.use("/", router);
 
 
-app.listen(8000, () =>{
+app.listen(3000, () =>{
     console.log('running');
 });
