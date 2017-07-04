@@ -14,6 +14,7 @@ mongoose.connection.on('connected', function () {
 mongoose.connection.on('error',function (err) {
     console.log('Mongoose default connection error: ');
 });
+
 router.get('/', (req, res) => {
     res.render('node');
 });
@@ -54,28 +55,7 @@ router.post('/register', (req, res) => {
     user_model.create(req.body)
 res.send('Perfect!');
 });
-router.post('/insert',(req,res, next)=>{
-    const ppl={
-        username: req.body.username,
-        phone_number: req.body.phone_number,
-        email: req.body.email,
-        password: req.body.password,
-    };
-    mongo.connect(url, function(err, db) {
-        if(!err) {
-            console.log("We are connected");
-        }
 
-
-        db.collection('user').insertOne(ppl,(err,result)=>{
-            if(!err){
-                console.log('ppl inserted')
-            }
-            db.close()
-        })
-    });
-    res.redirect('/ok')
-})
 
 
 module.exports = router;
