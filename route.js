@@ -1,25 +1,19 @@
 const express = require('express');
 const router = express.Router();
-<<<<<<< HEAD
-const mongoose  = require('mongoose');
-mongoose.Promise = global.Promise;
 const {user_model} = require('./mongo_models');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+const mongo =require('mongodb').MongoClient;
+const url='mongodb://localhost:27017/todo';
 
 
-
-mongoose.connect('mongodb://localhost/todo');
+mongoose.connect(url);
 mongoose.connection.on('connected', function () {
     console.log('Mongoose default connection open to ');
 });
 mongoose.connection.on('error',function (err) {
     console.log('Mongoose default connection error: ');
 });
-// const mongo =require('mongodb').MongoClient;
-const url='mongodb://localhost:27017/todo';
-=======
-const mongo =require('mongodb').MongoClient;
-const url='mongodb://localhost:27017/todo'
->>>>>>> 901ea6b9dc4f27b356596c099e349cdade654e8b
 router.get('/', (req, res) => {
     res.render('node');
 });
@@ -31,20 +25,30 @@ router.get('/ok', (req, res) => {
 
 
 router.post('/login', (req, res) => {
-    console.log(req.body.name)
-    user_model.findOne({name : req.body.name, lastname: req.body.lastname},null, {lean:true})
+    console.log(req.body);
+    let response = {"error":0}
+    user_model.findOne({username : req.body.username}, null, {lean:true})
         .then(doc =>{
             console.log(doc);
             //console.log(Object.keys(doc))
 
     if(doc) {
-        res.redirect('/ok');
+        if(req.body.password = doc.password){
+            response = doc;
+        }
+        else {
+            response.error = 1;
+            response.message = "incorrect password"
+        }
     }
     else {
-        res.send("error")
-    }
-});
+        response.error = 1;
+        response.message = "incorrect username"
+    }res.send(response)
 })
+        .catch(console.error)
+})
+
 router.post('/register', (req, res) => {
     //console.log(req.body);
     user_model.create(req.body)
