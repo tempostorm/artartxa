@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {user_model} = require('./mongo_models');
+const {user_model,prod_model} = require('./mongo_models');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const mongo =require('mongodb').MongoClient;
@@ -23,7 +23,16 @@ router.get('/ok', (req, res) => {
     console.log(req.body);
     res.send('Hello World!');
 });
-
+router.post('/prod',(req,res)=>{
+    prod_model.create(req.body)
+    // console.log("info was added")
+        .then(doc => {
+        res.send("prefect")
+    })
+        .catch(err =>{
+        res.send("error " + err)
+    })
+})
 
 router.post('/login', (req, res) => {
     console.log(req.body);
@@ -49,13 +58,19 @@ router.post('/login', (req, res) => {
 })
         .catch(console.error)
 })
+router.get('/get', (req, res) => {
+    console.log(req.body);
+    prod_model.find({name: req.query.name}, null, {lean:true})
+        .then(doc => {
+            res.send(doc);
+        })
+
+})
 
 router.post('/register', (req, res) => {
     //console.log(req.body);
     user_model.create(req.body)
 res.send('Perfect!');
 });
-
-
 
 module.exports = router;
