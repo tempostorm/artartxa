@@ -6,9 +6,6 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const router = require('./route');
 
-
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

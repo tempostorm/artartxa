@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const {user_model,prod_model} = require('./mongo_models');
+const {user_model,prod_model,news_model} = require('./mongo_models');
 const mongoose = require('mongoose');
+const moment = require('moment')
 mongoose.Promise = global.Promise;
 const mongo =require('mongodb').MongoClient;
-const url='mongodb://localhost:27017/todo';
+// const url='mongodb://localhost:27017/todo';
+const url='mongodb://localhost:27017/node';
 
 
 mongoose.connect(url);
@@ -72,5 +74,16 @@ router.post('/register', (req, res) => {
     user_model.create(req.body)
 res.send('Perfect!');
 });
+router.post("/add", (req,res)=>{
+const news =  req.body;
+    if(news){
+        news.date = moment().format("X");
+        news_model.create(news)
+            .then(doc)=>{
+            console.log("dshgjksd");
+        }
 
+    }
+
+})
 module.exports = router;
