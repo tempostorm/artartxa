@@ -35,4 +35,4 @@ const news= new Schema({
 const user_model = mongoose.model('User', schema, 'user');
 const prod_model = mongoose.model('Pord', products, 'products');
 const news_model = mongoose.model('News', news, 'news')
-module.exports = {user_model,prod_model};
+module.exports = {user_model,prod_model,news_model};

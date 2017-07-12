@@ -13,6 +13,7 @@
     "moment": "^2.18.1",
     "mongoose": "^4.10.7",
     "morgan": "^1.8.2"
+    "start" :"node index.js"
   },
   "devDependencies": {},
   "scripts": {

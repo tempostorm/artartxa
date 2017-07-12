@@ -6,7 +6,7 @@ const moment = require('moment')
 mongoose.Promise = global.Promise;
 const mongo =require('mongodb').MongoClient;
 // const url='mongodb://localhost:27017/todo';
-const url='mongodb://localhost:27017/node';
+const url='mongodb://artartxa:artartxa@ds011912.mlab.com:11912/heroku_69ssj1zc';
 
 
 mongoose.connect(url);
@@ -74,16 +74,28 @@ router.post('/register', (req, res) => {
     user_model.create(req.body)
 res.send('Perfect!');
 });
-router.post("/add", (req,res)=>{
-const news =  req.body;
-    if(news){
+router.post('/addNews', (req, res) => {
+    console.log(req.body);
+    const news = req.body;
+    if(news)
+    {
         news.date = moment().format("X");
-        news_model.create(news)
-            .then(doc)=>{
-            console.log("dshgjksd");
-        }
-
     }
+    news_model.create(req.body)
+        .then(doc =>{
+            res.send('Insert!');
+        })
+        .catch(err => {
+            res.send('Error ' + err)
+        })
 
+});module.exports = router;
+router.get('/find', (req, res) => {
+    news_model.find({}, null,{sort: {date : -1},limit : 1,lean:true})
+        .then(doc =>{
+        res.send(doc);
+        })
+        .catch(err=>{
+        res.send("error" + err)
+    })
 })
-module.exports = router;
